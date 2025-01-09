@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Money_Tracker.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Money_Tracker
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel(); // Set the DataContext here
+
         }
     }
 }

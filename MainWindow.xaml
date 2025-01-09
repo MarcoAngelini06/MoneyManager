@@ -27,7 +27,9 @@
                          Height="50"
                          Foreground="White"
                          FontSize="14"
-                         Style="{StaticResource MenuButtonTheme}"/>
+                         Style="{StaticResource MenuButtonTheme}"
+                         Command="{Binding NavigateCommand}"
+                         CommandParameter="MoneyTable"/>
             <RadioButton Content="Investment manager"
                          Height="50"
                          Foreground="White"
@@ -45,5 +47,13 @@
                          Style="{StaticResource MenuButtonTheme}"/>
             
         </StackPanel>
+
+        <ContentControl Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="10"
+                        Content="{Binding CurrentView}"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        FocusVisualStyle="{x:Null}"/>
     </Grid>
 </Window>

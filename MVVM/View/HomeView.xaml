@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Money_Tracker.MVVM.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Money_Tracker.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DataGrid x:Name="IncomeDataGrid" 
+          ItemsSource="{Binding Months}" 
+          AutoGenerateColumns="False" 
+          HeadersVisibility="Column" 
+          GridLinesVisibility="all" 
+          HorizontalGridLinesBrush="#9b999b"
+          VerticalGridLinesBrush="#9b999b"
+          Background="Transparent"
+          BorderBrush="Transparent" 
+          BorderThickness="0">
+        <DataGrid.Resources>
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="white"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+            <Style TargetType="DataGridRow">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+
+        </DataGrid.Resources>
+
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Month" Binding="{Binding name}" Width="*"/>
+            <DataGridTextColumn Header="income" Binding="{Binding income}" Width="*"/>
+            <DataGridTextColumn Header="expenses" Binding="{Binding expenses}" Width="*"/>
+        </DataGrid.Columns>
+    </DataGrid>
+
+</UserControl>
