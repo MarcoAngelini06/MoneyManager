@@ -10,6 +10,7 @@
         ResizeMode="CanResize" 
         MinHeight="300" MinWidth="400"
         Background="#191919">
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -34,7 +35,9 @@
                          Height="50"
                          Foreground="White"
                          FontSize="14"
-                         Style="{StaticResource MenuButtonTheme}"/>
+                         Style="{StaticResource MenuButtonTheme}"
+                         Command="{Binding NavigateCommand}"
+                         CommandParameter="InvestmentManager"           />
             <RadioButton Content="Future"
                          Height="50"
                          Foreground="White"

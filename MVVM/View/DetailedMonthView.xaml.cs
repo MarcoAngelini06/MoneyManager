@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Money_Tracker.MVVM.View;
-using Money_Tracker.MVVM.ViewModel;
 
 namespace Money_Tracker.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for DetailedMonthView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class DetailedMonthView : UserControl
     {
-        public MovementViewModel ViewModel { get; set; }
-
-        public HomeView()
+        public DetailedMonthView()
         {
-            InitializeComponent(); // Initialize the UI components
-            
+            InitializeComponent();
         }
-
     }
 }

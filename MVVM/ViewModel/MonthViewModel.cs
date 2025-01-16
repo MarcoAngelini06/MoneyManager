@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Money_Tracker.MVVM.Model;
-using Money_Tracker.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Money_Tracker.MVVM.Model;
+using Money_Tracker.MVVM.View;
+using Money_Tracker.Services;
 
 namespace Money_Tracker.MVVM.ViewModel
 {
@@ -28,22 +25,52 @@ namespace Money_Tracker.MVVM.ViewModel
                 }
             }
         }
-        private readonly DatabaseService _databaseService;
-        public MonthViewModel()
-        {
-            _databaseService = new DatabaseService();
-            Months = new ObservableCollection<Month>();
-            LoadMonths();
-        }
-        private void LoadMonths()
-        {
-            var monthsFromDb = _databaseService.GetAllMonths(); // Call the method from DatabaseService
 
-            foreach (var movement in monthsFromDb)
+        private readonly DatabaseService _databaseService;
+
+        // RelayCommand for navigation
+        public RelayCommand<Month> NavigateCommand { get; }
+
+        private readonly MainViewModel _mainViewModel;
+
+        public MonthViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+            NavigateCommand = new RelayCommand<Month>(NavigateToMonth);
+
+            _databaseService = new DatabaseService();
+            Months = new ObservableCollection<Month>(_databaseService.GetAllMonths());
+        }
+
+
+
+        private Month _selectedMonth;
+        public Month SelectedMonth
+        {
+            get => _selectedMonth;
+            set
             {
-                Months.Add(movement); // Populate the ObservableCollection
+                if (_selectedMonth != value)
+                {
+                    _selectedMonth = value;
+                    OnPropertyChanged(nameof(SelectedMonth));
+
+                    // Trigger navigation logic when a new month is selected
+                    NavigateToMonth(_selectedMonth);
+                }
             }
         }
+
+        // Method to handle navigation
+        private void NavigateToMonth(Month selectedMonth)
+        {
+            if (selectedMonth != null)
+            {
+                SelectedMonth = selectedMonth;
+                _mainViewModel.NavigateToDetailedMonthView(selectedMonth);
+            }
+        }
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

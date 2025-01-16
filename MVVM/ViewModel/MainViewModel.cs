@@ -1,4 +1,5 @@
-﻿using Money_Tracker.MVVM.View;
+﻿using Money_Tracker.MVVM.Model;
+using Money_Tracker.MVVM.View;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -25,12 +26,16 @@ namespace Money_Tracker.MVVM.ViewModel
 
         public ICommand NavigateCommand { get; }
 
+
         public MainViewModel()
         {
-            NavigateCommand = new RelayCommand<string>(Navigate);
-
-            // Set the default view
-            CurrentView = new HomeView();
+            NavigateCommand = new RelayCommand<string>(Navigate); //navigateCommand is expecting a string and is going to
+                                                                  //pass that parameter to the Navigate method
+            var homeView = new HomeView
+            {
+                DataContext = new MonthViewModel(this) // Pass the current MainViewModel instance
+            };
+            CurrentView = homeView;
         }
 
         private void Navigate(string viewName)
@@ -40,12 +45,16 @@ namespace Money_Tracker.MVVM.ViewModel
                 case "MoneyTable":
                     var homeView = new HomeView
                     {
-                        DataContext = new MovementViewModel() // Use the existing MovementViewModel
+                        DataContext = new MonthViewModel(this) // Pass the current MainViewModel instance
                     };
-                    CurrentView = new HomeView();
+                    CurrentView = homeView;
                     break;
                 case "InvestmentManager":
-                    CurrentView = new HomeView();
+                    var View = new DetailedMonthView
+                    {
+                        DataContext = new MonthViewModel(this) // Pass the current MainViewModel instance
+                    };
+                    CurrentView = View; 
                     break;
                 case "Future":
                     CurrentView = new HomeView();
@@ -55,10 +64,21 @@ namespace Money_Tracker.MVVM.ViewModel
                     break;
             }
         }
-
+        
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void NavigateToDetailedMonthView(Month selectedMonth)
+        {
+            var detailedMonthView = new DetailedMonthView
+            {
+                DataContext = new DetailedMonthViewModel(selectedMonth)
+            };
+            CurrentView = detailedMonthView;
+        }
+
+
     }
 }

@@ -6,35 +6,33 @@
              xmlns:local="clr-namespace:Money_Tracker.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <DataGrid x:Name="IncomeDataGrid" 
-          ItemsSource="{Binding Months}" 
-          AutoGenerateColumns="False" 
-          HeadersVisibility="Column" 
-          GridLinesVisibility="all" 
-          HorizontalGridLinesBrush="#9b999b"
-          VerticalGridLinesBrush="#9b999b"
-          Background="Transparent"
-          BorderBrush="Transparent" 
-          BorderThickness="0">
-        <DataGrid.Resources>
-            <Style TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="white"/>
-                <Setter Property="BorderBrush" Value="Gray"/>
-                <Setter Property="BorderThickness" Value="1"/>
-            </Style>
-            <Style TargetType="DataGridRow">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="White"/>
-            </Style>
-
-        </DataGrid.Resources>
-
+              ItemsSource="{Binding Months}" 
+              AutoGenerateColumns="False" 
+              HeadersVisibility="Column" 
+              GridLinesVisibility="All" 
+              HorizontalGridLinesBrush="#9b999b"
+              VerticalGridLinesBrush="#9b999b"
+              Background="Transparent"
+              BorderBrush="Transparent" 
+              BorderThickness="0"
+              Margin="25,0,25,0"
+              SelectedItem="{Binding SelectedMonth}">
+        
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Month" Binding="{Binding name}" Width="*"/>
-            <DataGridTextColumn Header="income" Binding="{Binding income}" Width="*"/>
-            <DataGridTextColumn Header="expenses" Binding="{Binding expenses}" Width="*"/>
+            <DataGridTextColumn Header="Month" Binding="{Binding name}" Width="*" ElementStyle="{StaticResource CenterTextStyle}"/>
+            <DataGridTextColumn Header="Income" Binding="{Binding income}" Width="*" ElementStyle="{StaticResource CenterTextStyle}"/>
+            <DataGridTextColumn Header="Expenses" Binding="{Binding expenses}" Width="*" ElementStyle="{StaticResource CenterTextStyle}"/>
+            <DataGridTextColumn Header="Subscriptions" Binding="{Binding subscription}" Width="*" ElementStyle="{StaticResource CenterTextStyle}"/>
+            <DataGridTextColumn Header="Total" Binding="{Binding tot}" Width="*" ElementStyle="{StaticResource CenterTextStyle}"/>
         </DataGrid.Columns>
     </DataGrid>
-
 </UserControl>
